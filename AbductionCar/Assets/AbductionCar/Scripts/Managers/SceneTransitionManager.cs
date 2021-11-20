@@ -24,7 +24,7 @@ namespace AbductionCar.Managers
         /// </summary>
         public bool IsLoadScene { get { return isLoadScene; } }
 
-        override protected void Awake()
+        protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(this.gameObject);

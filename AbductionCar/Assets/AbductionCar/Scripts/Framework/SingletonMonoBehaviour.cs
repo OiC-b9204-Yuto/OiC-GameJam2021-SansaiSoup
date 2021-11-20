@@ -31,7 +31,7 @@ namespace AbductionCar.Framework
             }
         }
 
-        virtual protected void Awake()
+        protected virtual void Awake()
         {
             if (this != Instance)
             {
@@ -41,7 +41,7 @@ namespace AbductionCar.Framework
             }
         }
 
-        virtual protected void OnDestroy()
+        protected virtual void OnDestroy()
         {
             if (instance == this)
             {

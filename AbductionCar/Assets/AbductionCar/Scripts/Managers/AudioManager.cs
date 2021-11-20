@@ -26,16 +26,9 @@ namespace AbductionCar.Managers
 
         [SerializeField] private AudioMixer audioMixer;
 
-        // Start is called before the first frame update
         void Start()
         {
             Load();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
 
         /// <summary>
