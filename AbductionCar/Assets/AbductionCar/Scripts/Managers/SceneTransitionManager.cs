@@ -16,7 +16,7 @@ namespace AbductionCar.Managers
     public class SceneTransitionManager : SingletonMonoBehaviour<SceneTransitionManager>
     {
         [SerializeField] private Image fadeImage;
-        private float fadeSpeed = 1;
+        private float fadeSpeed = 0.5f;
 
         private bool isLoadScene = false;
         /// <summary>

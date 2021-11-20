@@ -10,6 +10,7 @@ namespace AbductionCar.Managers
     public class AudioManager : SingletonMonoBehaviour<AudioManager>
     {
         public const string DataFileName = "volume.save";
+        public const float defaultVolume = 0.0f;
 
         public enum AudioGroup
         {
@@ -26,10 +27,10 @@ namespace AbductionCar.Managers
 
         [SerializeField] private AudioMixer audioMixer;
 
-        void Start()
-        {
-            Load();
-        }
+        [SerializeField] private AudioSource audioBGM;
+        public AudioSource BGM { get { return audioBGM; } }
+        [SerializeField] private AudioSource audioSE;
+        public AudioSource SE { get { return audioSE; } }
 
         /// <summary>
         /// 現在の音量のデータをファイルに保存する関数
@@ -46,12 +47,30 @@ namespace AbductionCar.Managers
             FileManager.Save(DataFileName, data);
         }
 
+        public string ResetSave()
+        {
+            VolumeDataListWrapper wrapper = new VolumeDataListWrapper();
+            foreach (var audioGroup in saveAudioGroups)
+            {
+                VolumeData volumeData = new VolumeData(audioGroup, defaultVolume);
+                wrapper.volumeDataList.Add(volumeData);
+            }
+            string data = JsonUtility.ToJson(wrapper);
+            FileManager.Save(DataFileName, data);
+            return data;
+        }
+
         /// <summary>
         /// 音量のデータをファイルから読み取り適用する関数
         /// </summary>
         public void Load()
         {
-            string data = FileManager.Load(DataFileName);
+            bool result;
+            string data = FileManager.Load(DataFileName,out result);
+            if (!result)
+            {
+                data = ResetSave();
+            }
             VolumeDataListWrapper wrapper = JsonUtility.FromJson<VolumeDataListWrapper>(data);
             foreach (var volumeData in wrapper.volumeDataList)
             {
