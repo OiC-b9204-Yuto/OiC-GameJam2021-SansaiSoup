@@ -7,19 +7,48 @@ public class CollisionHuman : MonoBehaviour
     [SerializeField]
     private GameObject PoliceCar;
 
-    public int count;
-    private void OnCollisionEnter(Collision collision)
+    private int score;
+
+    private int count;
+
+    private void OnTriggerEnter(Collider collider)
     {
         //Sphereが衝突したオブジェクトがPlaneだった場合
-        if (collision.gameObject.tag=="Human")
+        if (collider.gameObject.tag=="Human")
         {
+            if(count>=8)
+            {
+                return;
+            }
             count += 1;
             Debug.Log(count);
-            collision.gameObject.SetActive(false);
+            collider.gameObject.SetActive(false);
         }
-        if(collision.gameObject.tag=="Police")
+        else if(collider.gameObject.tag=="Hideout")
         {
-            Vector3 pos= this.transform.position;
+            score += count;
+            count = 0;
+            Debug.Log(score);
+            Vector3 pos = this.transform.position;
+            pos.x = 5;
+            pos.y = 0;
+            pos.z = -20;
+            this.transform.position = pos;
+            Vector3 rot = this.transform.eulerAngles;
+            rot.x = 0;
+            rot.y = 0;
+            rot.z = 0;
+            this.transform.eulerAngles = rot;
+            this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Police")
+        {
+            Vector3 pos = this.transform.position;
             pos.x = 5;
             pos.y = 0;
             pos.z = -20;
@@ -48,4 +77,5 @@ public class CollisionHuman : MonoBehaviour
             count = 0;
         }
     }
+
 }
