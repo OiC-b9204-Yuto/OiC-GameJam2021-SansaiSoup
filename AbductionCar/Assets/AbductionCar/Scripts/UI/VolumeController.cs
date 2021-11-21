@@ -20,6 +20,7 @@ namespace AbductionCar.UI
 
         private void Awake()
         {
+            time = SoundCooldownTime;
             slider.minValue = volumeMin;
             slider.maxValue = volumeMax;
             slider.SetValueWithoutNotify(AudioManager.Instance.GetVolume(groupName));
@@ -28,9 +29,9 @@ namespace AbductionCar.UI
 
         private void Update()
         {
-            if (time > 0)
+            if (time >= 0.0f)
             {
-                time -= Time.deltaTime;
+                time -= Time.unscaledDeltaTime;
             }
         }
 
@@ -51,7 +52,7 @@ namespace AbductionCar.UI
             }
             if(sound)
             {
-                if (time <= 0)
+                if (time <= 0.0f)
                 {
                     AudioManager.Instance.SE.PlayOneShot(sound, volumeScale);
                     time += SoundCooldownTime;

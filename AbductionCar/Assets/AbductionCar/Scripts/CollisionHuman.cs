@@ -15,6 +15,9 @@ public class CollisionHuman : MonoBehaviour
 
     private int count = 0;
 
+    [SerializeField] AudioClip humanSound;
+    [SerializeField] AudioClip hideoutSound;
+
     private void OnTriggerEnter(Collider collider)
     {
         //Sphereが衝突したオブジェクトがPlaneだった場合
@@ -27,9 +30,13 @@ public class CollisionHuman : MonoBehaviour
             count += 1;
             Debug.Log(count);
             Destroy(collider.gameObject);
+            AudioManager.Instance.SE.PlayOneShot(humanSound,0.1f);
         }
         else if (collider.gameObject.tag == "Hideout")
         {
+            if (count > 0) {
+                AudioManager.Instance.SE.PlayOneShot(hideoutSound, 0.4f);
+            }
             if (count == 8)
             {
                 score += 100;
@@ -51,6 +58,7 @@ public class CollisionHuman : MonoBehaviour
             this.transform.eulerAngles = rot;
             this.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+
         }
         countText.text = "乗車人数  " + count.ToString() + "/8人";
     }

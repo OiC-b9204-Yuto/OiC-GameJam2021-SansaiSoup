@@ -11,6 +11,15 @@ namespace AbductionCar.UI
         [SerializeField] private OptionsMenu optionsMenu;
         [SerializeField] private RankingMenu rankingMenu;
 
+        [SerializeField] AudioClip titleBGM;
+
+        void Start()
+        {
+            AudioManager.Instance.BGM.loop = true;
+            AudioManager.Instance.BGM.clip = titleBGM;
+            AudioManager.Instance.BGM.Play();
+        }
+
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))

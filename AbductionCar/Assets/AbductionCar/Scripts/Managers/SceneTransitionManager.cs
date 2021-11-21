@@ -52,6 +52,7 @@ namespace AbductionCar.Managers
             isLoadScene = true;
             EventSystem eventSystem = (EventSystem)FindObjectOfType(typeof(EventSystem));
             if (eventSystem) eventSystem.enabled = false;
+            AudioManager.Instance.BGM.Stop();
             StartCoroutine(LoadScene(name));
         }
 
@@ -68,6 +69,7 @@ namespace AbductionCar.Managers
             isLoadScene = true;
             EventSystem eventSystem = (EventSystem)FindObjectOfType(typeof(EventSystem));
             if (eventSystem) eventSystem.enabled = false;
+            AudioManager.Instance.BGM.Stop();
             StartCoroutine(LoadScene(index));
         }
 

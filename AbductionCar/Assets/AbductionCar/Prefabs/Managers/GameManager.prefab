@@ -43,3 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4940fd48f1fb3d43bcd604ea2e443ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPause: 0
+  gameBGM: {fileID: 8300000, guid: 9aabf5bb42224f04092095539f765add, type: 3}

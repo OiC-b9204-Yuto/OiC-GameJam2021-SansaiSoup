@@ -1,7 +1,9 @@
 using AbductionCar.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace AbductionCar.Managers
 {
@@ -16,39 +18,20 @@ namespace AbductionCar.Managers
             {
                 isPause = value;
                 Time.timeScale = isPause ? 0.0f : 1.0f;
-                AudioManager.Instance.SetVolume(AudioManager.AudioGroup.CarEngine, isPause ? -80.0f : -5.0f);
+                AudioManager.Instance.SetVolume(AudioManager.AudioGroup.CarEngine, isPause ? -80.0f : -7.5f);
             }
         }
-
         private const float InitTime = 120.0f;
-
         private float time = InitTime;
-        public float GetTime() { return time; }
-
         private int score = 0;
-
-        public int GetScore() { return score; }
-        public void AddScore(int score)
-        {
-            if(score >= 0)
-            this.score += score;
-        }
-
-
         private int localHighScore = 0;
-        public int GetHighScore() { return localHighScore; }
+
         private const string localHighScoreSaveFileName = "highscore.data";
-        public void CheckLocalHighScore(int score)
-        {
-            if (localHighScore < score)
-            {
-                localHighScore = score;
-                FileManager.Save(localHighScoreSaveFileName, localHighScore.ToString());
-            }
-        }
 
-        
+        [SerializeField] AudioClip gameBGM;
 
+        private float countDown = 3.0f;
+        [SerializeField]private Text countDownText;
 
         void Start()
         {
@@ -66,6 +49,9 @@ namespace AbductionCar.Managers
                 FileManager.Save(localHighScoreSaveFileName, "0");
             }
             localHighScore = parseResult;
+            AudioManager.Instance.BGM.loop = true;
+            AudioManager.Instance.BGM.clip = gameBGM;
+            AudioManager.Instance.BGM.Play();
         }
 
         void Update()
@@ -87,13 +73,31 @@ namespace AbductionCar.Managers
 
             if (!IsStart)
             {
-                GameStart();
+                if(countDown > 0)
+                {
+                    countDown -= Time.unscaledDeltaTime;
+                    countDownText.text = Math.Ceiling(countDown).ToString();
+                }
+                else
+                {
+                    countDownText.text = "START!";
+                    GameStart();
+                }
             }
-
-            time -= Time.deltaTime;
-            if(time <= 0)
+            else
             {
-                IsEnd = true;
+                if (countDownText.color.a >= 0)
+                {
+                    var color = countDownText.color;
+                    color.a -= 0.05f;
+                    countDownText.color = color;
+                }
+
+                time -= Time.deltaTime;
+                if (time <= 0)
+                {
+                    IsEnd = true;
+                }
             }
         }
 
@@ -105,6 +109,25 @@ namespace AbductionCar.Managers
             }
         }
 
+        public float GetTime() { return time; }
 
+        public int GetScore() { return score; }
+
+        public void AddScore(int score)
+        {
+            if (score >= 0)
+                this.score += score;
+        }
+
+        public int GetHighScore() { return localHighScore; }
+
+        public void CheckLocalHighScore(int score)
+        {
+            if (localHighScore < score)
+            {
+                localHighScore = score;
+                FileManager.Save(localHighScoreSaveFileName, localHighScore.ToString());
+            }
+        }
     }
 }
