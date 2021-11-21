@@ -51,6 +51,7 @@ namespace AbductionCar.Managers
                 else
                 {
                     int rank = 1;
+                    rankingDataList.Clear();
                     foreach (NCMBObject obj in objList)
                     {
                         rankingDataList.Add(new RankingData(
