@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!243 &-8602111294541513385
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: CarEngine
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: 2b0c609c2b46b0c44ba1c055b9d65c35
+  m_Children: []
+  m_Volume: cf5e547967a1426458a1f094aeb589c1
+  m_Pitch: e0aab0e1e2a1bc94584895660c27a074
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: 8556789919702461456}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!244 &-7540894340585094331
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -55,6 +74,7 @@ AudioMixerController:
     - c48069a7cd309e34bad9a247923514b1
     - 4b92c4dc08ee3124d91c91555d6698c7
     - 3a4daaae5c1811b4585a63d7d56e0e82
+    - 2b0c609c2b46b0c44ba1c055b9d65c35
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -104,6 +124,7 @@ AudioMixerSnapshotController:
   m_SnapshotID: c4a4f12f0bb72cc46b1dfc3d7644ff4d
   m_FloatValues:
     b7d7c3519780a354a91edd24d215fc61: -80
+    cf5e547967a1426458a1f094aeb589c1: -5.3230715
     0b9788a95ca45ba4493bc336e8510008: -80
   m_TransitionOverrides: {}
 --- !u!243 &3225899007229879251
@@ -134,7 +155,8 @@ AudioMixerGroupController:
   m_Name: SE
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 3a4daaae5c1811b4585a63d7d56e0e82
-  m_Children: []
+  m_Children:
+  - {fileID: -8602111294541513385}
   m_Volume: 0b9788a95ca45ba4493bc336e8510008
   m_Pitch: c05f6757da6b0f44aa40a203fa247e43
   m_Send: 00000000000000000000000000000000
@@ -144,3 +166,17 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &8556789919702461456
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: cec6dd263ce02964c8333857559d8f0e
+  m_EffectName: Attenuation
+  m_MixLevel: 1862eaa631631c744b92f002e9d7b5e9
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0

@@ -11,7 +11,7 @@ namespace AbductionCar.Managers
         public bool IsStart { get; private set; }
         public bool IsPause { get; set; }
 
-        private const float InitTime = 30.0f;
+        private const float InitTime = 120.0f;
 
         private float time = InitTime;
         public float GetTime() { return time; }

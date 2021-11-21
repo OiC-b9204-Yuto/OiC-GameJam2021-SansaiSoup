@@ -1,22 +1,26 @@
+using AbductionCar.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CollisionHuman : MonoBehaviour
 {
     [SerializeField]
     private GameObject PoliceCar;
+    //運んでいる人数表示用テキスト
+    [SerializeField] private Text countText;
 
-    private int score;
+    private int score = 0;
 
-    private int count;
+    private int count = 0;
 
     private void OnTriggerEnter(Collider collider)
     {
         //Sphereが衝突したオブジェクトがPlaneだった場合
-        if (collider.gameObject.tag=="Human")
+        if (collider.gameObject.tag == "Human")
         {
-            if(count>=8)
+            if (count >= 8)
             {
                 return;
             }
@@ -24,9 +28,15 @@ public class CollisionHuman : MonoBehaviour
             Debug.Log(count);
             collider.gameObject.SetActive(false);
         }
-        else if(collider.gameObject.tag=="Hideout")
+        else if (collider.gameObject.tag == "Hideout")
         {
-            score += count;
+            if (count == 8)
+            {
+                score += 100;
+            }
+            score += count * 100;
+            GameManager.Instance.AddScore(score - GameManager.Instance.GetScore());
+
             count = 0;
             Debug.Log(score);
             Vector3 pos = this.transform.position;
@@ -42,6 +52,7 @@ public class CollisionHuman : MonoBehaviour
             this.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         }
+        countText.text = "乗車人数  " + count.ToString() + "/8人";
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -76,6 +87,6 @@ public class CollisionHuman : MonoBehaviour
 
             count = 0;
         }
+        countText.text = "乗車人数  " + count.ToString() + "/8人";
     }
-
 }

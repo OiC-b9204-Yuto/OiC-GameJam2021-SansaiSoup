@@ -9,6 +9,7 @@ TagManager:
   - Human
   - Police
   - Hideout
+  - SubCamera
   layers:
   - Default
   - TransparentFX

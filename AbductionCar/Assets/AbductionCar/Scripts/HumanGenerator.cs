@@ -1,3 +1,4 @@
+using AbductionCar.Managers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,24 +6,62 @@ using UnityEngine;
 public class HumanGenerator : MonoBehaviour
 {
     [SerializeField] GameObject Human;
-    // Start is called before the first frame update
+    List<GameObject> instanceList = new List<GameObject>();
+
+    [SerializeField] private float maxHuman = 5;
+    [SerializeField] private float interval = 5;
+    private float initInterval;
+    private Vector2 minSpawnPoint;
+    private Vector2 maxSpawnPoint;
+    
     void Start()
     {
-        
+        initInterval = interval;
+        interval = 0;
+        float xPos = transform.position.x;
+        float zPos = transform.position.z;
+        float xScaleHalf = transform.localScale.x / 2.0f;
+        float zScaleHalf = transform.localScale.z / 2.0f;
+        minSpawnPoint = new Vector2(xPos - xScaleHalf, zPos - zScaleHalf);
+        maxSpawnPoint = new Vector2(xPos + xScaleHalf, zPos + zScaleHalf);
     }
     
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (GameManager.Instance.IsPause || GameManager.Instance.IsEnd)
         {
-            Generate();
-        };
+            return;
+        }
+
+        if (GameManager.Instance.IsStart)
+        {
+            if (instanceList.Count < maxHuman) {
+
+                interval -= Time.deltaTime;
+                if (interval <= 0)
+                {
+                    Generate();
+                    interval += initInterval;
+                }
+            }
+            else
+            {
+                foreach (var item in instanceList)
+                {
+                    if(item == null)
+                    {
+                        instanceList.Remove(item);
+                    }
+                }
+            }
+        }
     }
     public void Generate()
     {
         GameObject instance = (GameObject)Instantiate(Human,
-        new Vector3(Random.Range (-10.0f, 10.0f), 0.0f, Random.Range(-10.0f, 10.0f)),
+        new Vector3(Random.Range (minSpawnPoint.x, maxSpawnPoint.x), transform.position.y, Random.Range(minSpawnPoint.y, maxSpawnPoint.y)),
         Quaternion.identity);
+        instanceList.Add(instance);
     }
 }
