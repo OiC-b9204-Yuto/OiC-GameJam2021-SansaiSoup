@@ -48,6 +48,11 @@ namespace AbductionCar.UI
                         sendButton.interactable = true;
                     }
                 }
+                else
+                {
+                    inputField.interactable = false;
+                    sendButton.interactable = false;
+                }
             }
         }
 
@@ -60,6 +65,11 @@ namespace AbductionCar.UI
                 sendButton.interactable = false;
                 rankingButton.Select();
             }
+        }
+
+        public void ReturnToTitle()
+        {
+            SceneTransitionManager.Instance.LoadSceneStart("TitleScene");
         }
     }
 }

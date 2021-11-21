@@ -68,7 +68,7 @@ namespace AbductionCar.UI
         {
             AudioManager.Instance.Save();
             Resolution resolution = resolutionList[resolutionDropdown.value];
-            Screen.SetResolution(resolution.width, resolution.width, fullScreen.isOn);
+            Screen.SetResolution(resolution.width, resolution.height, fullScreen.isOn);
         }
 
         public void Undo()
