@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - CursorIgnore
+  - Fire
+  - Human
+  - Police
+  - Hideout
   layers:
   - Default
   - TransparentFX

@@ -29,8 +29,6 @@ namespace AbductionCar.UI
     
         void Start()
         {
-            AudioManager.Instance.Load();
-
             resolutionList =  new List<Resolution>(Screen.resolutions);
             foreach (var item in resolutionList)
             {

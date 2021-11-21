@@ -32,6 +32,11 @@ namespace AbductionCar.Managers
         [SerializeField] private AudioSource audioSE;
         public AudioSource SE { get { return audioSE; } }
 
+        private void Start()
+        {
+            Load();
+        }
+
         /// <summary>
         /// 現在の音量のデータをファイルに保存する関数
         /// </summary>
