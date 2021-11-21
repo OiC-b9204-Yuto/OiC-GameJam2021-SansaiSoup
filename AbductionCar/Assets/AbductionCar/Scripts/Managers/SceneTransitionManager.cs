@@ -94,7 +94,7 @@ namespace AbductionCar.Managers
             Color color = fadeImage.color;
             while (color.a >= 0)
             {
-                color.a -= fadeSpeed * Time.deltaTime;
+                color.a -= fadeSpeed * Time.unscaledDeltaTime;
                 fadeImage.color = color;
                 yield return null;
             }
@@ -106,7 +106,7 @@ namespace AbductionCar.Managers
             Color color = fadeImage.color;
             while (color.a <= 1)
             {
-                color.a += fadeSpeed * Time.deltaTime;
+                color.a += fadeSpeed * Time.unscaledDeltaTime;
                 fadeImage.color = color;
                 yield return null;
             }

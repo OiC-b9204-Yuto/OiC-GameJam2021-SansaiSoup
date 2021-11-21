@@ -13,6 +13,7 @@ namespace AbductionCar.UI
         [SerializeField] private Selectable enableSelectedObejct;
 
         [SerializeField] private Text scoreText;
+        [SerializeField] private Text highScoreText;
 
         [SerializeField] private InputField inputField;
         [SerializeField] private CustomButton sendButton;
@@ -32,6 +33,10 @@ namespace AbductionCar.UI
                 if (GameManager.Instance.IsEnd)
                 {
                     enableSelectedObejct.Select();
+                    scoreText.text = GameManager.Instance.GetScore().ToString();
+                    //ゲームマネージャー内完結でいい気がしてきた
+                    GameManager.Instance.CheckLocalHighScore(GameManager.Instance.GetScore());
+                    highScoreText.text = GameManager.Instance.GetHighScore().ToString();
                     ResultPanel.SetActive(true);
                 }
             }else

@@ -16,7 +16,8 @@ namespace AbductionCar.Managers
         {
             Master,
             BGM,
-            SE
+            SE,
+            CarEngine
         }
 
         public readonly AudioGroup[] saveAudioGroups =

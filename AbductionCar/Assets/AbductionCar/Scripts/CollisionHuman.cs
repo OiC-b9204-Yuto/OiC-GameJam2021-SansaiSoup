@@ -26,7 +26,7 @@ public class CollisionHuman : MonoBehaviour
             }
             count += 1;
             Debug.Log(count);
-            collider.gameObject.SetActive(false);
+            Destroy(collider.gameObject);
         }
         else if (collider.gameObject.tag == "Hideout")
         {
@@ -72,18 +72,18 @@ public class CollisionHuman : MonoBehaviour
             this.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
-            Vector3 posPolice = PoliceCar.transform.position;
-            posPolice.x = -106;
-            posPolice.y = 0;
-            posPolice.z = 65;
-            PoliceCar.transform.position = posPolice;
-            Vector3 rotPolice = PoliceCar.transform.eulerAngles;
-            rotPolice.x = 0;
-            rotPolice.y = 0;
-            rotPolice.z = 0;
-            PoliceCar.transform.eulerAngles = rotPolice;
-            PoliceCar.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            PoliceCar.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            //Vector3 posPolice = PoliceCar.transform.position;
+            //posPolice.x = -106;
+            //posPolice.y = 0;
+            //posPolice.z = 65;
+            //PoliceCar.transform.position = posPolice;
+            //Vector3 rotPolice = PoliceCar.transform.eulerAngles;
+            //rotPolice.x = 0;
+            //rotPolice.y = 0;
+            //rotPolice.z = 0;
+            //PoliceCar.transform.eulerAngles = rotPolice;
+            collision.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            collision.gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
 
             count = 0;
         }

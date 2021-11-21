@@ -47,11 +47,11 @@ public class HumanGenerator : MonoBehaviour
             }
             else
             {
-                foreach (var item in instanceList)
+                for (int i = instanceList.Count - 1; i >= 0; i--)
                 {
-                    if(item == null)
+                    if (instanceList[i] == null)
                     {
-                        instanceList.Remove(item);
+                        instanceList.RemoveAt(i);
                     }
                 }
             }

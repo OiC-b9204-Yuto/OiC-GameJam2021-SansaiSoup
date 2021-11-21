@@ -20,7 +20,6 @@ namespace AbductionCar.UI
         [SerializeField] private CustomButton refreshButton;
         float refreshCooldownTime = 0;
 
-
         void Start()
         {
             for (int i = 0; i < RankingManager.Instance.limitCount; i++)
