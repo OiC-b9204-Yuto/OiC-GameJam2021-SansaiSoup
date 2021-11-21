@@ -19,14 +19,12 @@ namespace AbductionCar.UI
         {
             eventSystem = (EventSystem)FindObjectOfType(typeof(EventSystem));
             _rectTransform = GetComponent<RectTransform>();
-            cursorImage.enabled = false;
         }
 
         void Start()
         {
             selectedObject = eventSystem.firstSelectedGameObject;
             CursorMove();
-            cursorImage.enabled = true;
         }
 
         void Update()
@@ -59,10 +57,20 @@ namespace AbductionCar.UI
         }
 
         void CursorMove()
-        {
+       {
             RectTransform rect = selectedObject.GetComponent<RectTransform>();
             _rectTransform.position = rect.position;
             _rectTransform.sizeDelta = new Vector2(rect.sizeDelta.x + 5, rect.sizeDelta.y + 5);
+        }
+
+        public void CursorEnabled(bool b)
+        {
+            cursorImage.enabled = b;
+        }
+
+        public bool GetEnabled()
+        {
+            return cursorImage.enabled;
         }
     }
 }

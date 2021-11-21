@@ -15,15 +15,25 @@ namespace AbductionCar.Managers
         public List<RankingData> GetRanking() { return rankingDataList; }
         public bool IsRankingDataValid { get; private set; }
         private string currentObjectId;
+        public string CurrentObjectId { get { return currentObjectId; } }
+
+        private DateTime lastFetchTime;
+
         protected override void Awake()
         {
             base.Awake();
             DontDestroyOnLoad(this.gameObject);
         }
 
+        //前回実行時から10秒経過するまで実行されないよ
         public void FetchRanking()
         {
             if(CheckNetworkValid() == false)
+            {
+                return;
+            }
+
+            if ((DateTime.Now - lastFetchTime).TotalSeconds < 10)
             {
                 return;
             }
@@ -53,13 +63,15 @@ namespace AbductionCar.Managers
                     IsRankingDataValid = true;
                 }
             });
+            lastFetchTime = DateTime.Now;
         }
 
-        public void SaveRanking(string name, int score)
+        public bool SaveRanking(string name, int score)
         {
+            bool b = false;
             if (CheckNetworkValid() == false || score <= 0)
             {
-                return;
+                return b;
             }
 
             NCMBObject ncmbObject = new NCMBObject(className);
@@ -83,9 +95,11 @@ namespace AbductionCar.Managers
                 else
                 {
                     currentObjectId = ncmbObject.ObjectId;
+                    b = true;
                 }
                 FetchRanking();
             });
+            return b;
         }
 
         private bool CheckNetworkValid()

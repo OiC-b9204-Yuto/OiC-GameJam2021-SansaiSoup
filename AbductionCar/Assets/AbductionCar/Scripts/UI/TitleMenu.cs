@@ -7,14 +7,24 @@ namespace AbductionCar.UI
 {
     public class TitleMenu : MonoBehaviour
     {
-        void Start()
-        {
-
-        }
+        //エスケープキーで閉じるため
+        [SerializeField] private OptionsMenu optionsMenu;
+        [SerializeField] private RankingMenu rankingMenu;
 
         void Update()
         {
-
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (optionsMenu.IsActive())
+                {
+                    optionsMenu.Undo();
+                    optionsMenu.Disable();
+                }
+                else if (rankingMenu.IsActive())
+                {
+                    rankingMenu.Disable();
+                }
+            }
         }
 
         public void GamePlay()

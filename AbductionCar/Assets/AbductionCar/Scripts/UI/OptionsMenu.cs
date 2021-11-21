@@ -26,7 +26,7 @@ namespace AbductionCar.UI
         //‰¹—Ê
         [SerializeField] private VolumeController bgmVolumeController;
         [SerializeField] private VolumeController seVolumeController;
-
+    
         void Start()
         {
             AudioManager.Instance.Load();
@@ -42,6 +42,7 @@ namespace AbductionCar.UI
             bgmVolumeController.SliderReset();
             seVolumeController.SliderReset();
         }
+
 
         private int CheckResolutionIndex()
         {
@@ -99,6 +100,10 @@ namespace AbductionCar.UI
             }
             optionsPanel.SetActive(false);
         }
-    }
 
+        public bool IsActive()
+        {
+            return optionsPanel.activeSelf;
+        }
+    }
 }

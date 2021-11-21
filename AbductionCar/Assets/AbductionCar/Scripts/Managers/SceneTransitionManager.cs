@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using AbductionCar.Framework;
+using UnityEngine.EventSystems;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif   
@@ -17,8 +18,7 @@ namespace AbductionCar.Managers
     {
         [SerializeField] private Image fadeImage;
         private float fadeSpeed = 0.5f;
-
-        private bool isLoadScene = false;
+        private bool isLoadScene = true;
         /// <summary>
         /// シーン読み込み中フラグ
         /// </summary>
@@ -31,6 +31,7 @@ namespace AbductionCar.Managers
             Color color = fadeImage.color;
             color.a = 1;
             fadeImage.color = color;
+            isLoadScene = true;
         }
 
         private void Start()
@@ -49,6 +50,8 @@ namespace AbductionCar.Managers
                 return;
             }
             isLoadScene = true;
+            EventSystem eventSystem = (EventSystem)FindObjectOfType(typeof(EventSystem));
+            if (eventSystem) eventSystem.enabled = false;
             StartCoroutine(LoadScene(name));
         }
 
@@ -63,6 +66,8 @@ namespace AbductionCar.Managers
                 return;
             }
             isLoadScene = true;
+            EventSystem eventSystem = (EventSystem)FindObjectOfType(typeof(EventSystem));
+            if (eventSystem) eventSystem.enabled = false;
             StartCoroutine(LoadScene(index));
         }
 
@@ -73,7 +78,6 @@ namespace AbductionCar.Managers
             yield return FadeOut();
             scene.allowSceneActivation = true;
             yield return FadeIn();
-            isLoadScene = false;
         }
 
         private IEnumerator LoadScene(int index)
@@ -83,7 +87,6 @@ namespace AbductionCar.Managers
             yield return FadeOut();
             scene.allowSceneActivation = true;
             yield return FadeIn();
-            isLoadScene = false;
         }
 
         private IEnumerator FadeIn()
@@ -95,6 +98,7 @@ namespace AbductionCar.Managers
                 fadeImage.color = color;
                 yield return null;
             }
+            isLoadScene = false;
         }
 
         private IEnumerator FadeOut()

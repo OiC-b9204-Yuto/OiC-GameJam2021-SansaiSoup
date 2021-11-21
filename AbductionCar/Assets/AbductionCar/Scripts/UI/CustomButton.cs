@@ -14,7 +14,12 @@ public class CustomButton : Selectable, IPointerClickHandler, IEventSystemHandle
 
     public virtual void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button != PointerEventData.InputButton.Left)
+        if (IsInteractable() == false)
+        {
+            return;
+        }
+
+        if (eventData.button != PointerEventData.InputButton.Left)
         {
             return;
         }
@@ -26,7 +31,11 @@ public class CustomButton : Selectable, IPointerClickHandler, IEventSystemHandle
     }
     public virtual void OnSubmit(BaseEventData eventData)
     {
-        
+        if (IsInteractable() == false)
+        {
+            return;
+        }
+
         if (clickSound)
         {
             AudioManager.Instance.SE.PlayOneShot(clickSound);
